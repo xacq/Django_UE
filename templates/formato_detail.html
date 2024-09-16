@@ -1,0 +1,10 @@
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+    <h2>{{ object.nombre_formato }}</h2>
+    <p>Dirección: {{ object.descripcion }}</p>
+    <p>Teléfono: {{ object.prioridad }}</p>
+    <p>Correo electrónico: {{ object.archivo_formato }}</p>
+    <a href="{% url 'formato_update' object.pk %}">Editar</a>
+    <a href="{% url 'formato_delete' object.pk %}">Eliminar</a>
+{% endblock %}

@@ -1,0 +1,71 @@
+<!-- estudiantes/templates/estudiantes/varios.html -->
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+<h2>Documentación</h2>
+
+{% if messages %}
+<div class="container">
+  <div class="row">
+      <div class="col-sm-6 offset-sm-3">
+        {% for message in messages %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+      </div>
+  </div>
+</div>   
+{% endif %}
+
+<div class="d-grid gap-2 col-6 mx-auto">
+  {% if request.session.rol == 'Estudiante' %}
+
+    {% if request.session.estado_empresa != 'Espera' %}
+      <a href="{% url 'enviar_carta_aprobacion' %}" class="btn btn-outline-primary" type="a">Carta de Aprobación</a>
+
+    {%else%}
+
+      <div class="alert alert-success">
+           No existe empresa asignada al Estudiante 
+      </div>
+
+    {%endif%}
+
+    {%if request.session.estado_tutor == 'Aprobado'%}
+
+      <a href="{% url 'registro_semanal' %}" class="btn btn-outline-primary" type="a">Registro de Actividades</a>
+      <a href="{% url 'registro_semanal_lista' %}" class="btn btn-outline-primary" type="a">Ver Actividades Registradas</a>
+      <a href="{% url 'reporte_estudiante' %}" class="btn btn-outline-primary" type="a">Ver Reporte Final</a>
+
+    {% else %}
+
+    <div class="alert alert-success">
+      No existe Tutor asigando. 
+    </div>
+
+      
+    {%endif%}
+
+  {% elif request.session.rol == 'Rector' %}  
+
+    <a href="{% url 'tutor_list' %}" class="btn btn-outline-primary" type="a">Asignar Tutor</a>
+
+  {% elif request.session.rol == 'Supervisor' %}  
+
+    <a href="{% url 'supervisor_estudiante_list' %}" class="btn btn-outline-primary" type="a">Ver Reportes</a>
+
+  {% elif request.session.rol == 'Tutor'%}
+    <a href={% url 'tutor_estudiantes' %} class="btn btn-outline-primary" type="a">Realizar Visitas Académicas / Evaluaciones</a>
+    <a href={% url 'visita_lista' %} class="btn btn-outline-primary" type="a">Ver Visitas Académicas Registradas</a>
+    <a href="{% url 'evaluacion_lista' %}" class="btn btn-outline-primary" type="a">Ver Evaluaciones de Actividades Registradas</a>
+    <a href="{% url 'registro_semanal_lista' %}" class="btn btn-outline-primary" type="a">Ver Actividades Registradas por Estudiantes</a>
+  {% elif request.session.rol == 'Administrador'%}
+    <a href={% url 'visita_lista' %} class="btn btn-outline-primary" type="a">Ver Visitas Académicas Registradas</a>
+    <a href="{% url 'evaluacion_lista' %}" class="btn btn-outline-primary" type="a">Ver Evaluaciones de Actividades Registradas</a>
+    <a href="{% url 'evaluacion_aprobada_lista' %}" class="btn btn-outline-primary" type="a">Ver Evaluaciones Aprobadas / Reportes Finales</a>
+  {% endif %}  
+  </div>
+
+
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends "bases/basereporte.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2>Reporte de Practicas Preprofesionales</h2>
+    <h6 class="text-success mb-5"><strong>Fecha del reporte:</strong> {{ now|date:"d/m/Y" }} </h6>
+
+    <form method="post" class="col-sm-10 offset-sm-1" action="{% url 'generar_reporte' evaluacion.pk %}">  
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm-6">
+                <!-- Datos del Estudiante -->
+                <div class="section">
+                    <div class="section-title"><h4>Datos del Estudiante</h4></div>
+                    <div class="section-content">
+                        <p class=" form-control"><strong>Nombre del Estudiante<br></strong> {{ perfil.nombres|add:" " |add:perfil.apellidos }}</p>
+                        <p class=" form-control"><strong>Especialización:<br></strong> {{ perfil.especializacion }}</p>
+                        <input type="hidden" name="estudiante" value="{{ perfil.pk}}" />
+                        <input type="hidden" name="evaluacion" value="{{ evaluacion.pk}}" />
+                        <input type="hidden" name="rector" value="{{ perfil_rector.nombres|add:" " |add:perfil_rector.apellidos }}" />
+                    </div>
+                </div>
+            </div>    
+            <div class="col-sm-6">
+                <!-- Datos de la Empresa -->
+                <div class="section">
+                    <div class="section-title"><h4>Datos de la Empresa</h4></div>
+                        <div class="section-content">
+                            <p class=" form-control"><strong>Nombre de la Empresa</strong><br> {{ perfil.empresa_nombre}}</p>
+                            <p class=" form-control"><strong>Dirección</strong> <br>{{ perfil.empresa_nombre.direccion }}</p>
+                            <p class=" form-control"><strong>Correo Electrónico</strong><br> {{ perfil.empresa_nombre.correo_electronico }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+    <!-- Período de Prácticas -->
+        <div class="section">
+            <div class="section-title"><h4>Período de Prácticas</h4></div>
+            <div class=row>
+                <div class="col-sm-6">
+                    <div class="section-content">
+                        <p class=" form-control"><strong>Fecha de Inicio</strong><br>{{perfil.reporte_fecha_inicio}}</p>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="section-content">
+                        <p class=" form-control"><strong>Fecha de Finalización</strong><br>{{perfil.reporte_fecha_final}}</p>
+                    </div>
+                </div>    
+            </div>    
+        </div>
+    <!-- Conclusiones -->
+        <div class="section">
+            <div class="section-title"><h4>Horas Realizadas</h4></div>
+            <div class="section-content">
+                <h4 class="text-success" name="horas">160 horas</h4>
+            </div>
+        </div>
+    <!-- Conclusiones -->
+        <div class="section">
+            <div class="section-title"><h4>Conclusiones</h4></div>
+            <div class="section-content">
+                <input  class=" form-control" type="text" name="conclusiones"/>
+            </div>
+        </div>
+    <!-- Observaciones -->
+        <div class="section">
+            <div class="section-title"><h4>Observaciones</h4></div>
+            <div class="section-content">
+                <textarea  class=" form-control"  type="text" name="observaciones" rows="3"> </textarea>
+            </div>
+        </div>
+        {% if perfil.reporte_estado == 'Aprobado'%}
+        <div class="form-group row mb-3">
+            <div class="col-sm-6">
+                <img src="{% static 'img/SelloColegio.png' %}" alt="Sello" width="200px">
+                <img src="{% static 'img/FirmaRectora.png' %}" class="card-img-top" alt="Firma">
+                <div class="card-body">
+                    <p class="card-text">Msgt. {{ perfil_rector.nombres|add:" " |add:perfil_rector.apellidos }}</p>
+                    <p class="card-text"><strong>Rector(a) de la Unidad Educativa Fiscal ‘Enrique Gil Gilbert’</strong></p>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                {%if perfil.reporte_estado == 'Aprobado' %}
+                    <img src="{% static 'img/sellogenerico.jpg' %}" alt="Firma" width="200px">
+                {% endif %}
+                <div class="card-body">
+                    <p class="card-text">{{ perfil.empresa_nombre}}</p>
+                    <p class="card-text"><strong>Entidad</strong></p>
+                </div>
+            </div>    
+        </div>    
+        {% endif %}
+        {% if perfil.reporte_estado == 'Espera1'%}
+            <button class="btn btn-outline-primary mb-3" type="submit">Generar Reporte</button>
+        {% elif perfil.reporte_estado == 'Espera' %}
+            <p class="mb-3" style="color:green"> REPORTE GENERADO EN ESPERA DE SER APROBADO POR EL SUPERVISOR.</p>
+        {% else %}    
+            <a class="btn btn-outline-success mb-3" href="{% url 'evaluacion_aprobada_lista'%}">PDF Reporte </a>    
+        {% endif %}
+    </form class="mb-3">
+<br>
+    <a class="btn btn-outline-primary mb-3" href="{% url 'evaluacion_aprobada_lista'%}"> Regresar </a>
+    
+</div>
+
+{% endblock %}

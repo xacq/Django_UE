@@ -1,0 +1,16 @@
+{% extends "bases/basehome.html" %}
+
+{% block content %}
+{% if request.session.rol == 'Rector' %}
+  <h2 class="col-sm-8 offset-sm-2">Aprobar Carta</h2>
+  <div class="col-sm-4 offset-sm-4">
+    <p>¿Está seguro de que desea aprobar la Carta?</p>
+    <form method="POST" action="">
+      {% csrf_token %}
+      <input type="hidden" name="estado_ingreso" value="Aprobado">
+      <button type="submit" class="btn btn-success">Aprobar Carta</button>
+      <a href="{% url 'home' %}" class="btn btn-danger">Cancelar</a>
+    </form>
+  </div>
+{% endif %}
+{% endblock %}

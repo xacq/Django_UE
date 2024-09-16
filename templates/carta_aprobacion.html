@@ -1,0 +1,163 @@
+{% extends "bases/basehome.html" %}
+
+{% block content %}
+
+        <h2>Carta de Aprobación </h2>
+
+        {% if request.session.estado_carta_aprobacion == "Espera1" %}    
+
+            <form class="form-control" method="post" action="{% url 'enviar_carta_aprobacion' %}">
+                {% csrf_token % %}
+                <div class="letter">
+                    <div class="heading">
+                    Guayaquil, {{ now|date:"d/m/Y" }}
+                    </div>
+                    <div class="salutation">
+                    <strong>Magister</strong>,<br>
+                    <strong>{{rector}}</strong><br>
+                    <strong>Rector(a) de la Unidad Educativa Enrique Gil Gilbert</strong><br>
+                    <br>
+                    De mis consideraciones:<br><br>
+                    Yo, <strong>{{request.session.nombres_completos|upper}}</strong>, estudiante de la Unidad 
+                    Educativa Enrique Gil Gilbert, en la especialización 
+                    <select required id="especializacion" name="especializacion">
+                        <option value="">Seleccionar una especialización</option>
+                        <option value="Contabilidad">Contabilidad</option>
+                        <option value="Informática">Informática</option>
+                        <option value="Organización y Gestión de la Secretaria">Organización y Gestión de la Secretaria</option>
+                        <option value="Gestión Administrativa y Ciencias">Gestión Administrativa y Ciencias</option>
+                    </select>
+                    , durante el período académico       
+                    <select name="ano_lectivo" required>
+                        <option value="">Seleccione un año</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
+                        <option value="2031">2031</option>
+                        <option value="2032">2032</option>
+                        <option value="2033">2033</option>
+                        <option value="2033">2034</option>
+                    </select>
+                    , solicito a usted de la manera más comedida y por su intermedio a quien corresponda, se apruebe el presente 
+                    oficio, a fin que se me permita realizar las prácticas pre profesionales de formación como uno de los requerimientos 
+                    a cumplir para culminar con el proceso de graduación.  Tales prácticas se realizaran en la empresa 
+                    <strong>{{nombre|upper}}</strong>, y el supervisor a cargo será el Sr. 
+                    <strong>{{supervisor|upper}}</strong>.
+                    </div><br>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="closing">
+                                Por la favorable atención que brinde a la presente, agradezco y suscribo.<br><br>
+                                Atentamente,
+                                <br><br>
+                                <strong><i>{{request.session.nombres_completos|upper}}.</i></strong>
+                                <br>
+                                CI: <strong><i>{{request.session.cedula}}.</i></strong>
+                                <input type="hidden" id="cedula "name="cedula" required value="{{request.session.cedula}}">
+                                <input type="hidden" id="supervisor "name="supervisor" required value="{{supervisor}}" >
+                                <input type="hidden" id="empresa "name="empresa" required value="{{nombre}}" >
+                                <input type="hidden" id="rector"name="rector" required value="{{rector}}" >
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            {% load static %}
+                            {% if request.session.estado_carta_aprobacion != 'Espera1' %}
+                                <img src="{% static "img/SelloColegio.png" %}" alt="Sello Colegio" class="img-fluid" width="200px">
+                            {% endif%}    
+                            <h6><strong>Sello Colegio para aprobación</strong></h6>
+                        </div>
+                    </div>    
+
+                </div>
+                <br>
+                <button type="submit" class="btn btn-outline-primary" onclick="validarCedula()">Enviar Carta de aprobación</button>
+            </form>
+
+        {% elif request.session.estado_carta_aprobacion == "Espera"%}
+            <div class="alert alert-success">
+                Carta de aprobación en Espera.
+            </div>
+            <a href="{% url 'home'%}" class="btn btn-outline-primary">Regresar</a>
+
+        {% elif request.session.estado_carta_aprobacion == "Aprobado" %}    
+
+            <form class="form-control" method="post" action="{% url 'enviar_carta_aprobacion' %}">
+                {% csrf_token % %}
+                <div class="letter">
+                    <div class="heading">
+                    <strong style="color:green">Guayaquil, {{carta.fecha_subida_carta|date:"d / m / Y " }}</strong>
+                    </div>
+                    <div class="salutation">
+                    <strong>Magister</strong>,<br>
+                    <strong style="color:green">{{carta.rector|upper}}</strong><br>
+                    <strong>Rector(a) de la Unidad Educativa Enrique Gil Gilbert</strong><br>
+                    <br>
+                    De mis consideraciones:<br><br>
+                    Yo, <strong style="color:green">{{request.session.nombres_completos|upper}}</strong>, estudiante de la Unidad 
+                    Educativa Enrique Gil Gilbert, de la especialización de <strong style="color:green">{{carta.especializacion|upper}}</strong>
+                    , durante el período académico <strong style="color:green">{{carta.ano_lectivo_carta}}</strong>, solicito a usted
+                     de la manera más comedida y por su intermedio a quien corresponda, se apruebe el presente 
+                    oficio, a fin que se me permita realizar las prácticas pre profesionales de formación como uno de los requerimientos 
+                    a cumplir para culminar con el proceso de graduación. Tales prácticas se realizaran en la empresa 
+                    <strong style="color:green">{{carta.empresa|upper}}</strong>, y el supervisor a cargo será el Sr. 
+                    <strong style="color:green">{{carta.supervisor|upper}}</strong>.
+                    </div><br>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="closing">
+                                Por la favorable atención que brinde a la presente, agradezco y suscribo.<br><br>
+                                Atentamente,
+                                <br><br>
+                                <strong style="color:green"><i>{{request.session.nombres_completos|upper}}.</i></strong>
+                                <br>
+                                CI: <strong style="color:green"> {{carta.cedula_carta}} </strong>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            {% load static %}
+                            {% if request.session.estado_carta_aprobacion == 'Aprobado' %}
+                                <img src="{% static "img/SelloColegio.png" %}" alt="Sello Colegio" class="img-fluid" width="200px">
+                            {% endif%}    
+                            <input type="hidden" name="formato" value="1">
+                            <h6><strong>Sello Colegio para aprobación</strong></h6>
+                        </div>
+                    </div>    
+
+                </div>
+                <br>
+                {% if request.session.estado_carta_aprobacion != 'Aprobado' %}
+                <button type="submit" class="btn btn-outline-primary">Enviar Carta de aprobación</button>
+                {% else %}
+                <a href={% url 'home' %} class="btn btn-outline-primary">Regresar</a>
+                {% endif%} 
+                
+            </form>
+
+        {% endif %}
+
+
+        {%if messages %}
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 offset-sm-3">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-danger">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            <a href="{% url 'home'%}" type="submit" class="btn btn-outline-primary">Regresar</a>
+        </div>  
+        
+        {% endif %}
+
+
+    {% endblock %}
+    

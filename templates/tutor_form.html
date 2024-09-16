@@ -1,0 +1,18 @@
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+    <h2>{% if form.instance.pk %}Editar Tutor{% else %}Nuevo Tutor{% endif %}</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group container">
+            
+            {{ form.as_p }}
+
+        </div>
+        
+        
+        <button type="submit" class="btn btn-outline-primary">Guardar</button>
+    </form>
+    <a href="{% url 'tutor_list' %}" class="btn btn-outline-danger">Cancelar</a>
+{% endblock %}

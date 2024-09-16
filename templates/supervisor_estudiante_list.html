@@ -1,0 +1,35 @@
+<!-- estudiantes/templates/estudiantes/varios.html -->
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+    <h2>Estudiantes con Reporte Generado</h2>
+    {% if estudiantes %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for estudiante in estudiantes %}
+                        <tr>
+                            <td>{{ estudiante.nombres |add:' ' |add:estudiante.apellidos }}</td>
+                            <td>{{ estudiante.user.email }}</td>
+                            <td>
+                                {% if estudiante.reporte_estado == 'Espera' %}
+                                    <a href="{% url 'supervisor_aprobar_reporte' estudiante.pk %}" class="btn btn-outline-primary">Reporte para Aprobar</a></td>
+                                {% elif estudiante.reporte_estado == 'Aprobado' %}    
+                                <a href="{% url 'supervisor_aprobar_reporte' estudiante.pk %}" class="btn btn-outline-success">Ver Reporte</a></td>
+                                {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>    
+    {% else %}
+        <p>No hay estudiantes asignados a este supervisor.</p>
+    {% endif %}
+{% endblock %}

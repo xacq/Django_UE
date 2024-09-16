@@ -1,0 +1,96 @@
+{% extends "bases/basePDF.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <h6><strong>Reporte Practicas Preprofesionales</strong></h6>
+    <h6 class="text-success"><strong>Reporte Generado en :</strong> {{ reporte.fecha_generacion|date:"d/m/Y" }} </h6>
+        <div class="row">
+            <div class="col-sm-6">
+                <!-- Datos del Estudiante -->
+                <div class="section">
+                    <div class="section-title"><h6>Datos del Estudiante</h6></div>
+                    <div class="section-content">
+                        <p ><strong>Nombre del Estudiante<br></strong> {{ perfil.nombres|add:" " |add:perfil.apellidos }}</p>
+                        <p ><strong>Especialización:<br></strong> {{ perfil.especializacion }}</p>
+                        <p ><strong>Horas de Prácticas Realizadas<br></strong>160 horas</p>
+                    </div>
+                </div>
+            </div>    
+            <div class="col-sm-6">
+                <!-- Datos de la Empresa -->
+                <div class="section">
+                    <div class="section-title"><h6>Datos de la Empresa</h6></div>
+                        <div class="section-content">
+                            <p><strong>Nombre de la Empresa</strong><br> {{ perfil.empresa_nombre}}</p>
+                            <p><strong>Dirección</strong> <br>{{ perfil.empresa_nombre.direccion }}</p>
+                            <p><strong>Correo Electrónico</strong><br> {{ perfil.empresa_nombre.correo_electronico }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+    <!-- Período de Prácticas -->
+        <div class="section">
+            <div class="section-title"><h6>Período de Prácticas</h6></div>
+            <div class=row>
+                <div class="col-sm-6">
+                    <div class="section-content">
+                        <p><strong>Fecha de Inicio</strong><br>{{perfil.reporte_fecha_inicio}}</p>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="section-content">
+                        <p><strong>Fecha de Finalización</strong><br>{{perfil.reporte_fecha_final}}</p>
+                    </div>
+                </div>    
+            </div>    
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                    <!-- Conclusiones -->
+                <div class="section">
+                    <div class="section-title"><h6><strong>Conclusiones</strong></h6></div>
+                    <div class="section-content">
+                        <p> {{reporte.conclusiones}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                    <!-- Observaciones -->
+                <div class="section">
+                    <div class="section-title"><h6><strong>Observaciones</strong></h6></div>
+                    <div class="section-content">
+                        <p>{{reporte.observaciones}} </p>
+                    </div>
+                </div>
+            </div>    
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <img src="{% static 'img/SelloColegio.png' %}" alt="Sello" width="100px">
+                <img src="{% static 'img/FirmaRectora.png' %}" alt="Firma" width="200px">
+                <div class="card-body">
+                    <p class="card-text">Msgt. {{ reporte.rector |upper}}</p>
+                    <p class="card-text"><strong>Rector(a) de la Unidad Educativa Fiscal ‘ENRIQUE GIL GILBERT’</strong></p>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <img src="{% static 'img/sellogenerico.jpg' %}" alt="Firma" width="100px">
+                <div class="card-body">
+                    <p class="card-text">{{ perfil.empresa_nombre}}</p>
+                    <p class="card-text"><strong>Entidad</strong></p>
+                </div>
+            </div>    
+        </div>    
+<br>
+    <!--a class="btn btn-outline-success mb-3" href="{% url 'generar_pdf' reporte.pk %}">Descargar PDF</a-->
+    <button onclick="window.print()" class="btn btn-outline-success mb-3">Imprimir Reporte</button>
+
+<br>
+        {% if rol == 'Administrador' %}
+        <a class="btn btn-outline-primary" href="{% url 'evaluacion_aprobada_lista'%}"> Regresar </a>
+        {% else %}
+        <a class="btn btn-outline-primary" href="{% url 'tutor_documentos'%}"> Regresar </a>
+        {% endif %}
+</div>
+
+{% endblock %}

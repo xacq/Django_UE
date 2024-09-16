@@ -1,0 +1,10 @@
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+    <h2>{% if object %}Editar{% else %}Agregar{% endif %} Formato</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+{% endblock %}

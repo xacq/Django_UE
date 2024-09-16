@@ -1,0 +1,97 @@
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+    <h2>{% if object %}Editar{% else %}Agregar{% endif %} Empresa</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="col-sm-6 offset-sm-3">
+            <div class="form-group row">
+                <div class="col-sm-4 offset-sm-2 text-start">
+                    <label for="nombre_empresa" class="form-label">Nombre de la Empresa</label>
+                </div>
+                <div class="col-md-4 ">
+                    {{ form.nombre_empresa }}
+                    {% if form.nombre_empresa.errors %}
+                        <div class="text-danger">{{ form.nombre_empresa.errors }}</div>
+                    {% endif %}
+                </div>    
+            </div>    
+
+            <div class="form-group row">
+                <div class="col-sm-4 offset-sm-2 text-start">
+                    <label for="ruc" class="form-label">RUC</label>
+                </div>
+                <div class="col-md-4 ">
+                    {{ form.ruc }}
+                    {% if form.ruc.errors %}
+                        <div class="text-danger">{{ form.ruc.errors }}</div>
+                    {% endif %}
+                </div>    
+            </div>   
+
+            <div class="form-group row">
+                <div class="col-sm-4 offset-sm-2 text-start">
+                    <label for="direccion" class="form-label">Dirección</label>
+                </div>
+                <div class="col-md-4 ">
+                    {{ form.direccion }}
+                    {% if form.direccion.errors %}
+                        <div class="text-danger">{{ form.direccion.errors }}</div>
+                    {% endif %}     
+                </div>    
+            </div>    
+
+            <div class="form-group row">
+                <div class="col-sm-4 offset-sm-2 text-start">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                </div>
+                <div class="col-md-4 ">
+                    {{ form.telefono }}
+                    {% if form.telefono.errors %}
+                        <div class="text-danger">{{ form.telefono.errors }}</div>
+                    {% endif %}
+                </div>    
+            </div>   
+
+            <div class="form-group row">
+                <div class="col-sm-4 offset-sm-2 text-start">
+                    <label for="correo_electronico" class="form-label">Correo Electrónico</label>
+                </div>
+                <div class="col-md-4 ">
+                    {{ form.correo_electronico }}
+                    {% if form.correo_electronico.errors %}
+                        <div class="text-danger">{{ form.correo_electronico.errors }}</div>
+                    {% endif %}
+                </div>    
+            </div>   
+
+            <div class="form-group row">
+                <div class="col-sm-4 offset-sm-2 text-start">
+                    <label for="representante" class="form-label">Representante</label>
+                </div>
+                <div class="col-md-4 ">
+                    {{ form.representante }}
+                    {% if form.representante.errors %}
+                        <div class="text-danger">{{ form.representante.errors }}</div>
+                    {% endif %}
+                </div>    
+            </div>   
+
+            <div class="form-group row">
+                <div class="col-sm-4 offset-sm-2 text-start">
+                    <label for="supervisor" class="form-label">Supervisor</label>
+                </div>
+                <div class="col-md-4 ">
+                    {{ form.supervisor }}
+                    {% if form.supervisor.errors %}
+                        <div class="text-danger">{{ form.supervisor.errors }}</div>
+                    {% endif %}
+                </div>    
+            </div>  
+            <p style="color:green;">Por favor colocar al supervisor segun formato "Nombre Apellido" </p>
+
+        </div>   
+         
+        <button type="submit" class="btn btn-outline-success">Guardar</button>
+    </form>
+{% endblock %}

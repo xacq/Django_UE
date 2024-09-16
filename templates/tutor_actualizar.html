@@ -1,0 +1,32 @@
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h2>Actualizar Información del Tutor</h2>
+
+    <p style="color:green">Actualice la información personal acerca de su experiencia.</p>
+
+    <form method="post" action={% url 'tutor_actualizar'%}>
+      {% csrf_token %}
+        <div class="col-sm-6 offset-sm-3">
+      
+            <div class="mb-1">
+                <label class="form-label"><strong>Profesión</strong></label>
+                <input name="profesion" class="form-control" required value="{{profesion}}">
+            </div>
+
+            <div class="mb-1">
+                <label class="form-label"><strong>Experiencia</strong></label>
+                <textarea class="form-control mb-3" name="experiencia" rows="3" required>{{experiencia}}</textarea>
+
+            </div>
+        </div>
+
+      <button type="submit" class="btn btn-outline-success mb-3">Actualizar</button>
+    </form>
+  </div>
+
+  <a class="btn btn-outline-primary mb-3" href={% url 'home'%}> Regresar </a>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+    <h2>Asignación de Empresa</h2>
+    <h5> Empresa: {{empresa.nombre_empresa}} </h5>
+    <div classs="container">
+        <div class="row">
+            <div class="col-sm-8 offset-sm-2">  
+
+                <form method="post" action="{% url 'empresa_asignado'%}">
+                    {% csrf_token %}
+                    <input hidden name="empresa_id" value="{{empresa.id}}" />
+                    <label for="estudiante">Seleccione un estudiante:</label>
+                    <select class="mb-3" name="estudiante_id" id="estudiante" required>
+                            <option value="">Seleccione estudiante</option>
+                        {% for estudiante in estudiantes_aprobados %}
+                            <option value="{{ estudiante.id }}">{{ estudiante.user.username }}</option>
+                        {% endfor %}
+                    </select>       
+                    <br>
+                    <button type="submit" class="btn btn-outline-primary mb-3">Asignar Empresa a Estudiante</button>
+
+                </form>
+            </div>    
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>    
+
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends "bases/base.html" %}
+
+{% block content %}
+<h2 class="col-sm-8 offset-sm-2">Registro</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 offset-sm-3">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-danger">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<form method="post" action="{% url 'registro'%}">
+    {% csrf_token %}
+    <div class="col-sm-4 offset-sm-4">
+
+        <div class="row text-start"> 
+            <div class="form-group col-sm-6 mb-1">
+                <p for="first_name">Nombres Completos</p>
+            </div>
+            <div class="form-group col-sm-6">
+                <input name="nombres" id="nombres" required>
+            </div>
+        </div>
+
+        <div class="row text-start"> 
+            <div class="form-group col-sm-6 mb-1">
+                <p for="last_name">Apellidos Completos</p>
+            </div>
+            <div class="form-group col-sm-6">
+                <input name="apellidos" id="apellidos" required>
+            </div>
+        </div>
+
+        
+        <div class="row text-start"> 
+            <div class="form-group col-sm-6 mb-1">
+                <p for="cedula">Cédula</p>
+            </div>
+            <div class="form-group col-sm-6">
+                <input name="cedula" id="cedula" required>
+            </div>
+        </div>
+
+
+        <div class="row text-start"> 
+            <div class="form-group col-sm-6 mb-1">
+                <p for="email" class="text-start">Correo electrónico</p>
+            </div>
+            <div class="form-group col-sm-6">
+                <input type="email" name="email" id="email" required>
+            </div>
+        </div>
+        
+        <div class="row text-start"> 
+            <div class="form-group col-sm-6 mb-1">
+                <p for="password">Contraseña</p>
+            </div>
+            <div class="form-group col-sm-6">
+                <input type="password" name="password" id="password" required>
+            </div>
+        </div>
+
+        <div class="row text-start"> 
+            <div class="form-group col-sm-6 mb-3">
+                <p for="password_confirm">Confirme contraseña</p>
+            </div>
+            <div class="form-group col-sm-6">
+                <input type="password" name="password2" id="password2" required>
+            </div>
+        </div>
+    </div>    
+
+    <p class="text-success"> El usuario se genera de la unión del campo nombres y apellidos junto al signo '_', por ejemplo juan_andres_cortazar_nero
+         </p>
+
+    <div class="form-group col-sm-8 offset-sm-2 mb-3">
+        <button type="submit" class="btn btn-outline-primary">Registrarse</button>
+    </div>
+</form>
+
+
+
+{% endblock %}

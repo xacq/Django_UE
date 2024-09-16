@@ -1,0 +1,257 @@
+{% extends 'bases/basedoc.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <h2>EVALUACIÓN DEL ESTUDIANTE</h2>
+            {% csrf_token %}
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <label for="estudiante"><strong>ESTUDIANTE:</strong></label>
+                    <p>{{evaluacion.estudiante}}</p>
+                    
+                </div>
+                <div class="col-sm-3">
+                    <label for="entidad"><strong>ENTIDAD:</strong></label>
+                    <p>{{evaluacion.entidad}}</p>
+                   
+                </div>
+                <div class="col-sm-3">
+                    <label for="receptora"><strong>RECEPTORA:</strong></label>
+                    <p>{{evaluacion.receptora}}</p>
+                    
+                </div>
+                <div class="col-sm-3">
+                    <label for="area"><strong>ÁREA:</strong></label>
+                    <p>{{evaluacion.area}}</p>
+                </div>
+            </div>
+            <div class="table-responsive mb-3">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" class="ambito">ÁMBITO</th>
+                            <th rowspan="2">CRITERIOS DE EVALUACIÓN</th>
+                            <th colspan="5">VALORACIÓN CUALITATIVA</th>
+                        </tr>
+                        <tr>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>4</th>
+                            <th>5</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="ambito">
+                            <td rowspan="5">COGNITIVO</td>
+                            <td>Comprensión de las tareas asignadas</td>
+                            <td><input readonly type="text" id="evaluacion_1_1" name="evaluacion_1_1" style="width: 100%;" value="{{evaluacion.evaluacion_1_1}}">
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_1_2" name="evaluacion_1_2" style="width: 100%;" value="{{evaluacion.evaluacion_1_2}}">
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_1_3" name="evaluacion_1_3" style="width: 100%;" value="{{evaluacion.evaluacion_1_3}}">
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_1_4" name="evaluacion_1_3" style="width: 100%;" value="{{evaluacion.evaluacion_1_4}}">
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_1_4" name="evaluacion_1_4" style="width: 100%;" value="{{evaluacion.evaluacion_1_5}}">
+                            </td>
+                        </tr>
+                        <tr class="ambito">
+                            <td>Organización y planificación del trabajo</td>
+                            <td> <input readonly type="text" id="evaluacion_2_1" name="evaluacion_2_1" style="width: 100%;" value="{{evaluacion.evaluacion_2_1}}">
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_2_2" name="evaluacion_2_2" style="width: 100%;" value="{{evaluacion.evaluacion_2_2}}">
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_2_3" name="evaluacion_2_3" style="width: 100%;" value="{{evaluacion.evaluacion_2_3}}">
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_2_4" name="evaluacion_2_4" style="width: 100%;" value="{{evaluacion.evaluacion_2_4}}">
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_2_5" name="evaluacion_2_5" style="width: 100%;" value="{{evaluacion.evaluacion_2_5}}">
+                            </td>
+                        </tr>
+                        <tr class="ambito">
+                            <td>Razonamiento</td>
+                            <td><input readonly type="text" id="evaluacion_3_1" name="evaluacion_3_1" style="width: 100%;" value="{{evaluacion.evaluacion_3_1}}">
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_3_2" name="evaluacion_3_2" style="width: 100%;" value="{{evaluacion.evaluacion_3_2}}">
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_3_3" name="evaluacion_3_3" style="width: 100%;" value="{{evaluacion.evaluacion_3_3}}">
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_3_4" name="evaluacion_3_4" style="width: 100%;" value="{{evaluacion.evaluacion_3_4}}">
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_3_5" name="evaluacion_3_5" style="width: 100%;" value="{{evaluacion.evaluacion_3_5}}">
+                            </td>
+                        </tr>
+                        <tr class="ambito">
+                            <td>Iniciativa - creatividad</td>
+                            <td><input readonly type="text" id="evaluacion_4_1" name="evaluacion_4_1" style="width: 100%;" value="{{evaluacion.evaluacion_4_1}}">
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_4_2" name="evaluacion_4_2" style="width: 100%;" value="{{evaluacion.evaluacion_4_2}}">
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_4_3" name="evaluacion_4_3" style="width: 100%;" value="{{evaluacion.evaluacion_4_3}}">
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_4_4" name="evaluacion_4_4" style="width: 100%;" value="{{evaluacion.evaluacion_4_4}}">
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_4_5" name="evaluacion_4_5" style="width: 100%;" value="{{evaluacion.evaluacion_4_5}}">
+                            </td>
+                        </tr>
+                        <tr class="ambito">
+                            <td>Uso de métodos y técnicas</td>
+                            <td><input readonly type="text" id="evaluacion_5_1" name="evaluacion_5_1" style="width: 100%;" value="{{evaluacion.evaluacion_5_1}}">
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_5_2" name="evaluacion_5_2" style="width: 100%;" value="{{evaluacion.evaluacion_5_2}}">
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_5_3" name="evaluacion_5_3" style="width: 100%;" value="{{evaluacion.evaluacion_5_3}}">
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_5_4" name="evaluacion_5_4" style="width: 100%;" value="{{evaluacion.evaluacion_5_4}}">
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_5_5" name="evaluacion_5_5" style="width: 100%;" value="{{evaluacion.evaluacion_5_5}}">
+                            </td>
+                        </tr>
+                        <tr class="ambito">
+                            <td colspan = "2">Productividad individual</td>
+                            <td><input readonly type="text" id="evaluacion_6_1" name="evaluacion_6_1" style="width: 100%;" value="{{evaluacion.evaluacion_6_1}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_6_2" name="evaluacion_6_2" style="width: 100%;" value="{{evaluacion.evaluacion_6_2}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_6_3" name="evaluacion_6_3" style="width: 100%;" value="{{evaluacion.evaluacion_6_3}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_6_4" name="evaluacion_6_4" style="width: 100%;" value="{{evaluacion.evaluacion_6_4}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_6_5" name="evaluacion_6_5" style="width: 100%;" value="{{evaluacion.evaluacion_6_5}}">
+
+                            </td>
+                        </tr>
+                        <tr class="ambito">
+                            <td colspan="2">Calidad del trabajo realizado</td>
+                            <td><input readonly type="text" id="evaluacion_7_1" name="evaluacion_7_1" style="width: 100%;" value="{{evaluacion.evaluacion_7_1}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_7_2" name="evaluacion_7_2" style="width: 100%;" value="{{evaluacion.evaluacion_7_2}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_7_3" name="evaluacion_7_3" style="width: 100%;" value="{{evaluacion.evaluacion_7_3}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_7_4" name="evaluacion_7_4" style="width: 100%;" value="{{evaluacion.evaluacion_7_4}}">
+ 
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_7_5" name="evaluacion_7_5" style="width: 100%;" value="{{evaluacion.evaluacion_7_5}}">
+
+                            </td>
+                        </tr>
+                        <tr class="ambito">
+                            <td rowspan="5">ACTITUDINAL</td>
+                            <td >Orden e higiene</td>
+                            <td >
+                                <input readonly type="text" id="evaluacion_8_1" name="evaluacion_8_1" style="width: 100%;" value="{{evaluacion.evaluacion_8_1}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_8_2" name="evaluacion_8_2" style="width: 100%;" value="{{evaluacion.evaluacion_8_2}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_8_3" name="evaluacion_8_3" style="width: 100%;" value="{{evaluacion.evaluacion_8_3}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_8_4" name="evaluacion_8_4" style="width: 100%;" value="{{evaluacion.evaluacion_8_4}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_8_5" name="evaluacion_8_5" style="width: 100%;" value="{{evaluacion.evaluacion_8_5}}">
+
+                            </td>
+                        </tr>
+                        <tr class="ambito">
+                            <td>Aplicación de normas de seguridad</td>
+                            <td><input readonly type="text" id="evaluacion_9_1" name="evaluacion_9_1" style="width: 100%;" value="{{evaluacion.evaluacion_9_1}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_9_2" name="evaluacion_9_2" style="width: 100%;" value="{{evaluacion.evaluacion_9_2}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_9_3" name="evaluacion_9_3" style="width: 100%;" value="{{evaluacion.evaluacion_9_3}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_9_4" name="evaluacion_9_4" style="width: 100%;" value="{{evaluacion.evaluacion_9_4}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_9_5" name="evaluacion_9_5" style="width: 100%;" value="{{evaluacion.evaluacion_9_5}}">
+
+                            </td>
+                        </tr>
+                        <tr class="ambito">
+                            <td>Colaboración y trabajo en equipo</td>
+                            <td><input readonly type="text" id="evaluacion_10_1" name="evaluacion_10_1" style="width: 100%;" value="{{evaluacion.evaluacion_10_1}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_10_2" name="evaluacion_10_2" style="width: 100%;" value="{{evaluacion.evaluacion_10_2}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_10_3" name="evaluacion_10_3" style="width: 100%;" value="{{evaluacion.evaluacion_10_3}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_10_4" name="evaluacion_10_4" style="width: 100%;" value="{{evaluacion.evaluacion_10_4}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_10_5" name="evaluacion_10_5" style="width: 100%;" value="{{evaluacion.evaluacion_10_5}}">
+   
+                            </td>
+                        </tr>
+                        <tr class="ambito">
+                            <td>Asistencia y puntualidad</td>
+                            <td><input readonly type="text" id="evaluacion_11_1" name="evaluacion_11_1" style="width: 100%;" value="{{evaluacion.evaluacion_11_1}}">
+ 
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_11_2" name="evaluacion_11_2" style="width: 100%;" value="{{evaluacion.evaluacion_11_2}}">
+
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_11_3" name="evaluacion_11_3" style="width: 100%;" value="{{evaluacion.evaluacion_11_3}}">
+  
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_11_4" name="evaluacion_11_4" style="width: 100%;" value="{{evaluacion.evaluacion_11_4}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_11_5" name="evaluacion_11_5" style="width: 100%;" value="{{evaluacion.evaluacion_11_5}}">
+ 
+                            </td>
+                        </tr>
+                        <tr class="ambito">
+                            <td>Responsabilidad e interés por el trabajo</td>
+                            <td><input readonly type="text" id="evaluacion_12_1" name="evaluacion_12_1" style="width: 100%;" value="{{evaluacion.evaluacion_12_1}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_12_2" name="evaluacion_12_2" style="width: 100%;" value="{{evaluacion.evaluacion_12_2}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_12_3" name="evaluacion_12_3" style="width: 100%;" value="{{evaluacion.evaluacion_12_3}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_12_4" name="evaluacion_12_4" style="width: 100%;" value="{{evaluacion.evaluacion_12_4}}">
+
+                            </td>
+                            <td><input readonly type="text" id="evaluacion_12_5" name="evaluacion_12_5" style="width: 100%;" value="{{evaluacion.evaluacion_12_5}}">
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="referencia mb-3">
+                <h6><strong>Referencia</strong>: <strong>A</strong>= Muy satisfactorio <strong>B</strong>= Satisfactorio <strong>C</strong>= Poco satisfactorio</h6>
+            </div>
+    </div>
+
+    {% if request.session.rol == "Administrador" and evaluacion.estado == 'Espera'%}
+        <a class= "btn btn-outline-success mb-3" href="{% url 'aprobar_evaluacion' evaluacion.pk%}">Aprobar Evaluación</a>    
+    <br>
+    {% elif request.session.rol == "Administrador"%}
+        <a class= "btn btn-outline-primary" href="{% url 'evaluacion_aprobada_lista' %}">Regresar</a>
+    {% else %}
+        <a class= "btn btn-outline-primary" href="{% url 'tutor_documentos' %}">Regresar</a>
+    {% endif %}
+{% endblock %}

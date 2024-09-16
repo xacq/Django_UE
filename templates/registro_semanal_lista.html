@@ -1,0 +1,68 @@
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+<h2>Lista de Actividades Registradas</h2>
+
+<div class="container col-sm-6 mb-3">
+  {% if messages %}
+    <div>
+      {% for message in messages %}
+        <div class="alert alert-success">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+
+<!-- Formulario de búsqueda -->
+<form method="GET" action="">
+    <div class="input-group mb-3">
+        <input type="text" name="q" class="form-control" placeholder="Buscar por estudiante, entidad o área de trabajo" value="{{ query }}">
+        <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+    </div>
+</form>
+
+<!-- Mostrar mensaje si no hay informes -->
+{% if mensaje %}
+    <div class="alert alert-warning">{{ mensaje }}</div>
+{% else %}
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+          <tr>
+              <th>Entidad</th>
+              <th>Receptora</th>
+              <th>Nombre del Estudiante</th>
+              <th>Nombre del Docente</th>
+              <th>Área de Trabajo</th>
+              <th>Fecha inicio</th>
+              <th>Fecha final</th>
+              <th>Acciones</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for informe in informes %}
+          <tr>
+              <td>{{ informe.entidad }}</td>
+              <td>{{ informe.receptora }}</td>
+              <td>{{ informe.nombre_estudiante }}</td>
+              <td>{{ informe.nombre_docente }}</td>
+              <td>{{ informe.area_trabajo }}</td>
+              <td>{{ informe.fecha_inicio | date:"d/m/Y" }}</td>
+              <td>{{ informe.fecha_final | date:"d/m/Y" }}</td>
+              <td>
+                  <a class="btn btn-outline-success" href="{% url 'registro_semanal_ver' informe.pk %}">Ver Actividad</a>
+                  {% if rol == 'Estudiante' %}
+                    <a class="btn btn-outline-danger" href="{% url 'registro_semanal_eliminar' informe.pk %}">Eliminar Actividad</a>
+                  {% endif %}
+              </td>
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endif %}
+
+<a href="{% url 'tutor_documentos' %}" class="btn btn-outline-primary mb-3">Regresar</a>
+{% endblock %}

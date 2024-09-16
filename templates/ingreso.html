@@ -1,0 +1,34 @@
+<!-- estudiantes/templates/ingreso.html -->
+{% extends "bases/base.html" %}
+
+{% block content %}
+<h2 class="col-sm-8 offset-sm-2">Ingreso</h2>
+
+<div class="container col-sm-6 mb-3">
+    {% if messages %}
+        <div>
+            {% for message in messages %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>    
+
+<form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <div class="form-group col-sm-4 offset-sm-4 mb-3">
+        <label for="username">Usuario</label>
+        <input type="text" class="form-control" id="username" name="username" required>
+        <p style="color:green"> El usuario va en minusculas y separado por "_" </p>
+    </div>
+    <div class="form-group col-sm-4 offset-sm-4  mb-3">
+        <label for="password">Contraseña</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+    </div>
+    <button type="submit" class="btn btn-outline-primary">Ingresar</button>
+</form>
+
+{% endblock %}
+

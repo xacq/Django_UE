@@ -1,0 +1,28 @@
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+    <h2>Roles</h2>
+    <div classs="container">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">  
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre del Rol</th>
+                            <th>Detalles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for rol in object_list %}
+                            <tr>
+                                <td>{{ rol.nombre }}</td>
+                                <td><a class="btn btn-outline-primary" href="{% url 'rol_detail' rol.pk %}">Ver</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>    
+        </div>
+    </div>
+    <a class="btn btn-outline-primary" href="{% url 'rol_create' %}">Agregar nuevo Rol</a>
+{% endblock %}

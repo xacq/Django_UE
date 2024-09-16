@@ -1,0 +1,130 @@
+{% extends 'bases/basedoc.html' %}
+
+{% block content %}
+    
+<div class="container col-sm-6 mb-3">
+    {% if messages %}
+        <div>
+            {% for message in messages %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+    <div class="container">
+
+        <h2 style="text-align: center;">REGISTRO SEMANAL DE ACTIVIDADES</h2>
+        {% if request.session.estado_carta_aprobacion == 'Aprobado'%}
+            <form method="post">
+                {% csrf_token %}
+                <div class=" row header-section mb-3">
+                    <div class="col-sm-4">
+                        <label for="entidad">ENTIDAD:</label>
+                        <p>{{request.session.empresa}}</p>
+                        <input type="hidden" id="entidad" name="entidad" value="{{request.session.empresa}}" >
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="receptora">RECEPTORA:</label>
+                        <p>ENRIQUE GIL GILBERT</p>
+                        <input  type="hidden" id="receptora" name="receptora" style="width: 100%;" value="ENRIQUE GIL GILBERT">
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="nombre-estudiante">NOMBRE DEL ESTUDIANTE:</label>
+                        <p>{{user.first_name}} {{user.last_name}}</p>
+                        <input  type="hidden" id="nombre-estudiante" name="nombre-estudiante" style="width: 100%;" value="{{user.first_name}} {{user.last_name}}">
+                    </div>
+                </div>
+                <div class="row header-section mb-3">
+                    <div class="col-sm-4">
+                        <label for="nombre-docente">NOMBRE DOCENTE TUTOR:</label>
+                        <p>{{request.session.tutor}}</p>
+                        <input  type="hidden" id="nombre-docente" name="nombre-docente" style="width: 100%;"  value="{{request.session.tutor}}">
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="area-trabajo">ÁREA(S) DE TRABAJO:</label>
+                        <input type="text" id="area-trabajo" name="area-trabajo" style="width: 100%;" required>
+                    </div>
+                    <div class="col-sm-4">
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="semana">FECHA INICIO:</label>
+                                <input type="date" id="fecha" name="fecha_inicio" style="width: 100%;" required>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="semana">FECHA FINAL:</label>
+                                <input type="date" id="fecha" name="fecha_final" style="width: 100%;" required>
+                            </div>
+                            <p style="color: green;">Verifique que las fechas cumplan con la condicion de semana completa (LUN. - VIE.)</p>
+                        </div>    
+
+                    </div>
+
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>DÍA</th>
+                                <th>DESCRIPCIÓN DE LA ACTIVIDAD REALIZADA</th>
+                                <th>DIFICULTADES EN LA REALIZACIÓN</th>
+                                <th>APOYO RECIBIDO</th>
+                                <th>OBSERVACIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>LUNES</td>
+                                <td><input required type="text" name="lunes_actividad" style="width: 100%;"></td>
+                                <td><input required type="text" name="lunes_dificultad" style="width: 100%;"></td>
+                                <td><input required type="text" name="lunes_apoyo" style="width: 100%;"></td>
+                                <td><input required type="text" name="lunes_observaciones" style="width: 100%;"></td>
+                            </tr>
+                            <tr>
+                                <td>MARTES</td>
+                                <td><input required type="text" name="martes_actividad" style="width: 100%;"></td>
+                                <td><input required type="text" name="martes_dificultad" style="width: 100%;"></td>
+                                <td><input required type="text" name="martes_apoyo" style="width: 100%;"></td>
+                                <td><input required type="text" name="martes_observaciones" style="width: 100%;"></td>
+                            </tr>
+                            <tr>
+                                <td>MIÉRCOLES</td>
+                                <td><input required type="text" name="miercoles_actividad" style="width: 100%;"></td>
+                                <td><input required type="text" name="miercoles_dificultad" style="width: 100%;"></td>
+                                <td><input required type="text" name="miercoles_apoyo" style="width: 100%;"></td>
+                                <td><input required type="text" name="miercoles_observaciones" style="width: 100%;"></td>
+                            </tr>
+                            <tr>
+                                <td>JUEVES</td>
+                                <td><input required type="text" name="jueves_actividad" style="width: 100%;"></td>
+                                <td><input required type="text" name="jueves_dificultad" style="width: 100%;"></td>
+                                <td><input required type="text" name="jueves_apoyo" style="width: 100%;"></td>
+                                <td><input required type="text" name="jueves_observaciones" style="width: 100%;"></td>
+                            </tr>
+                            <tr>
+                                <td>VIERNES</td>
+                                <td><input required type="text" name="viernes_actividad" style="width: 100%;"></td>
+                                <td><input required type="text" name="viernes_dificultad" style="width: 100%;"></td>
+                                <td><input required type="text" name="viernes_apoyo" style="width: 100%;"></td>
+                                <td><input required type="text" name="viernes_observaciones" style="width: 100%;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="footer ">
+                    <h4>{{user.first_name|upper}} {{user.last_name|upper}}</h4>
+                    <h5 class="mb-3">Estudiante</h5>
+                </div>
+                <button type="submit" class="btn btn-outline-success mb-3">Enviar Informe</button>
+            </form>
+        {% else %}
+            <h4>Todavia no ha sido aprobado para realizar este documento</h4>
+        {% endif%}
+    </div>
+
+    <a class= "btn btn-outline-primary mb-3" href="{% url 'tutor_documentos' %}">Regresar</a>
+
+{% endblock %}

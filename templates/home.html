@@ -1,0 +1,155 @@
+<!-- estudiantes/templates/estudiantes/sistema.html -->
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+
+{% if request.session.rol == 'Estudiante' %}
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 offset-sm-3">
+        {% if request.session.estado_ingreso == 'Rechazado' %}
+        <div class="alert alert-danger">
+          <p>Tu perfil ha sido rechazado.</p> </div>
+        {% endif %}    
+        {% if request.session.estado_ingreso == 'Espera' %} 
+        <div class="alert alert-danger">
+          <p>Tu perfil está pendiente de aprobación.</p> </div> 
+        {% endif %}  
+      </div>
+    </div>
+
+    <div class="container col-sm-6 mb-3">
+      {% if messages %}
+        <div>
+          {% for message in messages %}
+            <div class="alert alert-success">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>    
+{% endif %}
+
+{% if request.session.rol == 'Administrador' %}
+
+  <div class="container">
+    <div class="col-sm-12 table-responsive">
+      <h2>Usuarios en espera de ser aprobados</h2>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Correo</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for estudiante in estudiantes %}
+            <tr>
+              <td>{{ estudiante.username }}</td>
+              <td>{{ estudiante.email }}</td>
+              <td>{{ estudiante.estado_ingreso }}</td>
+              <td>
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                  <a href="{% url 'aprobar_usuario' estudiante.pk %}" class="btn btn-success">Aprobar</a>
+                  <a href="{% url 'rechazar_estudiante' estudiante.pk %}" class="btn btn-danger">Rechazar</a>
+                </div>
+                </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>  
+
+  {% if messages %}
+    <div class="container">
+      <div class="row">
+          <div class="col-sm-6 offset-sm-3">
+            {% for message in messages %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+          </div>
+      </div>
+    </div>   
+  {% endif%}
+
+{% endif %}
+
+{% if request.session.rol == 'Rector' %}
+  {% if messages %}
+    <div class="container">
+      <div class="row">
+          <div class="col-sm-6 offset-sm-3">
+            {% for message in messages %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+          </div>
+      </div>
+    </div>   
+  {% endif %}  
+
+    <h2>Cartas de Aprobación Pendientes</h2>
+    <div class="col-sm-6 offset-sm-3 table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Estudiante</th>
+            <th>Cédula</th>
+            <th>Año Lectivo</th>
+            <th>Estado de la Carta</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for carta in cartas %}
+            <tr>
+              <td>{{ carta.username }}</td>
+              <td>{{ carta.cedula_carta }}</td>
+              <td>{{ carta.ano_lectivo_carta }}</td>
+              <td>{{ carta.estado_carta }}</td>
+              <td>
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                  <a href="{% url 'ver_carta' carta.pk %}" class="btn btn-success">Ver</a>
+                  <!--a href="{% url 'aprobar_carta' carta.pk %}" class="btn btn-danger">Aprobar</a-->
+                </div>
+
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Estudiantes en espera de tutores</h2>
+    <div class="col-sm-6 offset-sm-3  table-responsive">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Estudiante</th>
+            <th>Estado de Tutor</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for tutor in tutores_epera %}
+            <tr>
+              <td>{{ tutor.username }}</td>
+              <td>{{ tutor.estado_tutor }}</td>
+              <td><a href="{% url 'tutor_list' %}" class="btn btn-success">Ver Tutores</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+{% endif %}
+
+{% endblock %}

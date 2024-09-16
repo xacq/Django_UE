@@ -1,0 +1,27 @@
+{% extends "bases/basehome.html" %}
+
+{% block content %}
+{% if request.session.rol == 'Administrador' %}
+  <h2 class="col-sm-8 offset-sm-2">Aprobar Usuario</h2>
+  <div class="col-sm-6 offset-sm-3">
+    <p>¿Estás seguro de que quieres aprobar a {{ perfil.nombres |add:' ' |add:perfil.apellidos  }}?</p>
+    <form method="POST" action="{% url 'aprobar_usuario' perfil.pk %}">
+      {% csrf_token %}
+      <p>Selecciona un Perfil para el usuario</p>
+      <label for="id_rol">Selecciona un rol:</label>
+      <select name="rol" id="id_rol" class="mb-3" required>
+        <option value="">Selecciona una opción</option>
+          {% for rol in form.fields.rol.queryset %}
+              <option value="{{ rol.id }}">{{ rol.nombre }}</option>
+          {% endfor %}
+      </select>
+      <br>
+
+      <input type="hidden" name="nombre" value="{{ perfil.nombres |add:' ' |add:perfil.apellidos }}">
+      <input type="hidden" name="estado" value="Aprobado">
+      <button type="submit" class="btn btn-success mb-3">Aprobar</button>
+    </form>
+    <a href="{% url 'home' %}" class="btn btn-danger">Cancelar</a>
+  </div>
+{% endif %}
+{% endblock %}

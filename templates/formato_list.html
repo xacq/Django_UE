@@ -1,0 +1,11 @@
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+    <h2>Formatos</h2>
+    <ul>
+        {% for formato in object_list %}
+            <li><a href="{% url 'formato_detail' formato.pk %}">{{ formato.nombre }}</a></li>
+        {% endfor %}
+    </ul>
+    <a class="btn btn-outline-primary" href="{% url 'formato_create' %}">Agregar nuevo Formato</a>
+{% endblock %}

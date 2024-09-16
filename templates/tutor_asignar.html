@@ -1,0 +1,40 @@
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+    <h2>Asignación de Tutor</h2>
+    <h4> Tutor: <strong style="color:green;">{{tutor.nombre}} </strong></h4>
+    <div classs="container">
+        <div class="row">
+            <div class="col-sm-8 offset-sm-2">  
+                <form method="post" action="{% url 'tutor_asignado' %}">
+                    {% csrf_token %}
+                    <input hidden name="tutor_id" value="{{tutor.id}}" />
+                    <select class="mb-3 form-select" name="estudiante_id" id="estudiante" required>
+                            <option value="">Seleccione un estudiante para asignarle el actual tutor</option>
+                        {% for estudiante in estudiantes_aprobados %}
+                            <option value="{{ estudiante.id }}">{{ estudiante.user.first_name }} {{ estudiante.user.last_name }} </option>
+                        {% endfor %}
+                    </select>       
+                    <br>
+                    <button type="submit" class="btn btn-outline-primary mb-3">Asignar Tutor a Estudiante</button>
+
+                </form>
+            </div>    
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>    
+
+{% endblock %}

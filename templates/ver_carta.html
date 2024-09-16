@@ -1,0 +1,55 @@
+<!-- estudiantes/templates/estudiantes/varios.html -->
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+<h2>Carta de Aprobación</h2>
+
+  <div class="letter">
+      <div class="heading">
+      <strong style="color:green">Guayaquil, {{carta.fecha_subida_carta |date:"d / m / Y"}}</strong>
+      </div>
+      <div class="salutation">
+      <strong>Magister</strong>,<br>
+      <strong style="color:green">{{carta.rector|upper}}</strong><br>
+      <strong>Rector(a) de la Unidad Educativa Enrique Gil Gilbert</strong><br>
+      <br>
+      De mis consideraciones:<br><br>
+      Yo, <strong style="color:green">{{carta.estudiante_carta.first_name|upper}} {{carta.estudiante_carta.last_name|upper}}</strong>, estudiante de la Unidad 
+      Educativa Enrique Gil Gilbert, en la especialización <strong style="color:green">{{carta.especializacion|upper}}</strong>, durante el período académico <strong style="color:green">{{carta.ano_lectivo_carta}}</strong>
+      , solicito a usted de la manera más comedida y por su intermedio a quien corresponda, se apruebe el presente 
+      oficio, a fin que se me permita realizar las prácticas pre profesionales de formación como uno de los requerimientos 
+      a cumplir para culminar con el proceso de graduación. Tales prácticas se realizaran en la empresa 
+      <strong style="color:green">{{carta.empresa|upper}}</strong>, y el supervisor a cargo será el Sr. 
+      <strong style="color:green">{{carta.supervisor|upper}}</strong>.
+      </div><br>
+      <div class="row">
+          <div class="col-sm-8">
+              <div class="closing">
+                  Por la favorable atención que brinde a la presente, agradezco y suscribo.<br><br>
+                  Atentamente,
+                  <br><br>
+                  <strong style="color:green"><i>{{carta.estudiante_carta.first_name|upper}} {{carta.estudiante_carta.last_name|upper}}.</i></strong>
+                  <br>
+                  CI: <strong style="color:green"> {{carta.cedula_carta}} </strong>
+              </div>
+          </div>
+          <div class="col-sm-4">
+              {% load static %}
+              {% if request.session.estado_carta_aprobacion == 'Aprobado' %}
+                  <img src="{% static "img/SelloColegio.png" %}" alt="Sello Colegio" class="img-fluid" width="200px">
+              {% endif%}    
+              <input type="hidden" name="estado_ingreso" value="Aprobado">
+              <h6><strong>Sello Colegio para aprobación</strong></h6>
+          </div>
+      </div>    
+
+  </div>
+  <br>
+  
+  <a href={% url 'aprobar_carta' carta.estudiante_carta_id %} class="btn btn-outline-primary">Aprobar</a>   
+
+  <a href={% url 'rechazar_carta' carta.estudiante_carta_id %} class="btn btn-outline-danger">Rechazar</a>
+
+  <a href={% url 'home' %} class="btn btn-outline-success">Regresar</a>
+
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'bases/basedoc.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Registro de Visitas de Seguimiento</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="header-section">
+            <div class="col-sm-2">
+                <label for="entidad">Estudiante:</label>
+                <p>{{perfil.nombres|upper}} {{perfil.apellidos|upper}}</p>
+                <input hidden id="estudiante" name="estudiante" value="{{perfil.nombres}} {{perfil.apellidos}}">
+            </div>
+            <div class="col-sm-2">
+                <label for="nombre-autoridad">Entidad:</label>
+                <p>{{perfil.empresa_nombre|upper}}</p>
+                <input hidden id="empresa" name="empresa" value="{{perfil.empresa_nombre}}">
+            </div>
+            <div class="col-sm-2">
+                <label for="receptora">Receptora:</label>
+                <p>ENRIQUE GIL GILBERT</p>
+                <input hidden id="receptora" name="receptora" required value="ENRIQUE GIL GILBERT">
+            </div>
+            <div class="col-sm-2">
+                <label for="tutor">Tutor:</label>
+                <p>{{user.first_name|upper}} {{user.last_name|upper}}</p>
+                <input hidden id="tutor" name="tutor" required value="{{user.first_name}} {{user.last_name}}">
+            </div>
+            <div class="col-sm-2">
+                <label for="supervisor">Supervisor:</label>
+                <p>{{supervisor|upper}}</p>
+                <input hidden id="supervisor" name="supervisor" required value="{{perfil.supervisor}}">
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover mb-3">
+                <thead>
+                    <tr>
+                        <th>Visita No.</th>
+                        <th>Día</th>
+                        <th>Fecha</th>
+                        <th>Tutor Receptora</th>
+                        <th>Entidad</th>
+                        <th>Observaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Se pueden añadir más filas según se necesiten -->
+                    <tr>
+                        <td> <p>{{visitas}}</p>
+                            <input hidden name="numero" id="numero" required value="{{visitas}}"></td>
+                        <td><select id="dia" name="dia" required> 
+                            <option value="">Seleccione un día</option>
+                            <option value="lunes">Lunes</option>
+                            <option value="martes">Martes</option>
+                            <option value="miércoles">Miércoles</option>
+                            <option value="jueves">Jueves</option>
+                            <option value="viernes">Viernes</option>
+                        </select></td>
+                        <td><input type="date" name="fecha" id="fecha" required></td>
+                        <td><input type="text" name="tutor_receptora" id="tutor_receptora" required></td>
+                        <td><input type="text" name="entidad2" id="entidad2" required></td>
+                        <td><input type="text" name="observaciones" id="observaciones" required></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="visto-bueno">
+            <div class="row">
+                <div class="mb-3 col-sm-12" >
+                    <label for="calificacion"><strong>Calificación:</strong></label>
+                    <input type="text" id="calificacion" name="calificacion">
+                </div>
+
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <h4>UNIDAD EDUCATIVA ENRIQUE GIL GILBERT</h4>  
+            <h2>{{user.first_name}} {{user.last_name}}</h2>
+            <h6>Tutor Designado</h6>
+
+        </div>
+        <button type="submit" class="btn btn-outline-primary mb-3">Guardar</button>
+    </form>
+
+
+</div>
+    <a class= "btn btn-outline-primary mb-3" href="{% url 'tutor_documentos' %}">Regresar</a>
+
+{% endblock %}

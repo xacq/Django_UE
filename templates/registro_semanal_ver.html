@@ -1,0 +1,117 @@
+{% extends 'bases/basedoc.html' %}
+
+{% block content %}
+    
+<div class="container col-sm-6 mb-3">
+    {% if messages %}
+        <div>
+            {% for message in messages %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+    <div class="container">
+
+        <h2 style="text-align: center;">REGISTRO SEMANAL DE ACTIVIDADES</h2>
+                <div class=" row header-section mb-3">
+                    <div class="col-sm-4">
+                        <label for="entidad">ENTIDAD:</label>
+                        <p>{{registro.entidad}}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="receptora">RECEPTORA:</label>
+                        <p>{{registro.receptora}}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="nombre-estudiante">NOMBRE DEL ESTUDIANTE:</label>
+                        <p>{{registro.nombre_estudiante}}</p>                    </div>
+                </div>
+                <div class="row header-section mb-3">
+                    <div class="col-sm-4">
+                        <label for="nombre-docente">NOMBRE DOCENTE TUTOR:</label>
+                        <p>{{registro.nombre_docente}}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="area-trabajo">ÁREA(S) DE TRABAJO:</label>
+                        <p>{{registro.area_trabajo}}</p>
+                    </div>
+                    <div class="col-sm-4">
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="semana">FECHA INICIO:</label>
+                                <p>{{registro.fecha_inicio|date:"d/m/Y"}}</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="semana">FECHA FINAL:</label>
+                                <p>{{registro.fecha_final|date:"d/m/Y"}}</p>
+                            </div>
+                            <p style="color: green;">Verifique que las fechas cumplan con la condicion de semana completa (LUN. - VIE.)</p>
+                        </div>    
+
+                    </div>
+
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>DÍA</th>
+                                <th>DESCRIPCIÓN DE LA ACTIVIDAD REALIZADA</th>
+                                <th>DIFICULTADES EN LA REALIZACIÓN</th>
+                                <th>APOYO RECIBIDO</th>
+                                <th>OBSERVACIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>LUNES</td>
+                                <td><input disabled required type="text" value="{{registro.lunes_actividad}}" style="width: 100%;"></td>
+                                <td><input disabled required type="text" value="{{registro.lunes_dificultad}}" style="width: 100%;"></td>
+                                <td><input disabled required type="text" value="{{registro.lunes_apoyo}}" style="width: 100%;"></td>
+                                <td><input disabled required type="text" value="{{registro.lunes_observaciones}}" style="width: 100%;"></td>
+                            </tr>
+                            <tr>
+                                <td>MARTES</td>
+                                <td><input disabled required type="text" value="{{registro.martes_actividad}}" style="width: 100%;"></td>
+                                <td><input disabled required type="text" value="{{registro.martes_dificultad}}" style="width: 100%;"></td>
+                                <td><input disabled required type="text" value="{{registro.martes_apoyo}}" style="width: 100%;"></td>
+                                <td><input disabled required type="text" value="{{registro.martes_observaciones}}" style="width: 100%;"></td>
+                            </tr>
+                            <tr>
+                                <td>MIÉRCOLES</td>
+                                <td><input disabled required type="text" value="{{registro.miercoles_actividad}}" style="width: 100%;"></td>
+                                <td><input disabled required type="text" value="{{registro.miercoles_dificultad}}" style="width: 100%;"></td>
+                                <td><input disabled required type="text" value="{{registro.miercoles_apoyo}}" style="width: 100%;"></td>
+                                <td><input disabled required type="text" value="{{registro.miercoles_observaciones}}" style="width: 100%;"></td>
+                            </tr>
+                            <tr>
+                                <td>JUEVES</td>
+                                <td><input disabled required type="text" value="{{registro.jueves_actividad}}" style="width: 100%;"></td>
+                                <td><input disabled required type="text" value="{{registro.jueves_dificultad}}" style="width: 100%;"></td>
+                                <td><input disabled required type="text" value="{{registro.jueves_apoyo}}" style="width: 100%;"></td>
+                                <td><input disabled required type="text" value="{{registro.jueves_observaciones}}" style="width: 100%;"></td>
+                            </tr>
+                            <tr>
+                                <td>VIERNES</td>
+                                <td><input disabled required type="text" value="{{registro.viernes_actividad}}" style="width: 100%;"></td>
+                                <td><input disabled required type="text" value="{{registro.viernes_dificultad}}" style="width: 100%;"></td>
+                                <td><input disabled required type="text" value="{{registro.viernes_apoyo}}" style="width: 100%;"></td>
+                                <td><input disabled required type="text" value="{{registro.viernes_observaciones}}" style="width: 100%;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="footer ">
+                    <h4>{{registro.nombre_estudiante|upper}}</h4>
+                    <h5 class="mb-3">Estudiante</h5>
+                </div>
+    </div>
+
+    <a class= "btn btn-outline-primary mb-3" href="{% url 'registro_semanal_lista' %}">Regresar</a>
+
+{% endblock %}

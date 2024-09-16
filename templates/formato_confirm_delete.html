@@ -1,0 +1,10 @@
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+    <h2>Eliminar Formato</h2>
+    <p>¿Estás seguro de que deseas eliminar "{{ object.nombre_formato }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirmar</button>
+    </form>
+{% endblock %}

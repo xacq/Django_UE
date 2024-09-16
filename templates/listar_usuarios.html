@@ -1,0 +1,41 @@
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+<h2>Listado de Usuarios</h2>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Rol</th>
+            <th>Habilitado</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for usuario in usuarios %}
+        <tr>
+            <td>{{ usuario.user }}</td>
+            <td>{{ usuario.rol.nombre }}</td>
+            <td>{% if usuario.habilitado %}
+                    Habilitado  </td>
+                    <td>
+                        <form method="post" action="{% url 'eliminar_usuario' usuario.pk %}" onsubmit="return confirm('¿Estás seguro de que deseas deshabilitar a este usuario?');">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Deshabilitar</button>
+                        </form>  
+                {% else %}
+                    No habilitado </td> 
+                    <td>
+                        <form method="post" action="{% url 'habilitar_usuario' usuario.pk %}" onsubmit="return confirm('¿Estás seguro de que deseas deshabilitar a este usuario?');">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success">Habilitar</button>
+                        </form> 
+                {% endif %}      
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

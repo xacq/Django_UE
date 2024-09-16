@@ -1,0 +1,55 @@
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+    <h2>Tutores</h2>
+
+    <!-- Formulario de búsqueda -->
+    <form method="GET" action="{% url 'tutor_list' %}" class="mb-3 col-sm-8 offset-sm-2">
+        <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Buscar tutor por nombre">
+        <button type="submit" class="btn btn-outline-success mt-2">Buscar</button>
+    </form>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 offset-sm-2">  
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Profesión</th>
+                            <th>Experiencia</th>
+                            {% if request.session.rol == 'Rector' %}
+                            <th>Detalles</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for tutor in tutores %}
+                            <tr>
+                                <td>{{ tutor.nombre }}</td>
+                                <td>{{ tutor.profesion }}</td>
+                                <td>{{ tutor.experiencia }}</td>
+                                {% if request.session.rol == 'Rector' %}
+                                <td><a class="btn btn-outline-success" href="{% url 'tutor_asignar' tutor.pk %}">Asignar Estudiante</a></td>                            
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>    
+        </div>
+    </div>
+
+    <!-- Botón de regresar según rol -->
+    {% if request.session.rol == 'Administrador' %}   
+    <a class="btn btn-outline-primary" href="{% url 'home' %}">Regresar</a>
+    {%endif%}
+    {% if request.session.rol == 'Tutor' %}   
+    <a class="btn btn-outline-primary" href="{% url 'home' %}">Regresar</a>
+    {%endif%}
+
+    {% if request.session.rol == 'Rector' %}   
+    <a class="btn btn-outline-primary" href="{% url 'home' %}">Regresar</a>
+    {%endif%}
+
+{% endblock %}

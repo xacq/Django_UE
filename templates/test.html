@@ -1,0 +1,303 @@
+<!-- estudiantes/templates/estudiantes/test.html -->
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+<h2 style="color:orange;">Evaluación para determinar Perfil Profesional</h2>
+
+{% if request.session.estado_ia == 'Aprobado' %}
+
+<div class="form-group mt-3">
+    <a href="{% url 'analisis_ia' %}" class="btn btn-outline-primary">Ver Respuesta de Inteligencia Artificial</a>
+  </div>
+
+{% else %}
+<div class="container row">
+    <div class="col-sm-8 offset-sm-2">
+
+        <form action="{% url 'formulario_ia' %}" method="post">
+          {% csrf_token %}
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        <strong>Preguntas sobre intereses y pasatiempos</strong>
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="form-group">
+                            <label for="p1">1. ¿Qué actividades disfrutas hacer en tu tiempo libre?</label>
+                            <textarea required class="form-control" id="p1" rows="3" name="p1"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="p2">2. ¿Hay alguna materia en la escuela que te guste más que las demás? ¿Cuál y por qué?</label>
+                            <textarea required class="form-control" id="p2" rows="3" name="p2"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="p3">3. ¿Participas en algún club, grupo o equipo dentro o fuera de la escuela? ¿Cuál es tu rol en ese grupo?</label>
+                            <textarea required class="form-control" id="p3" rows="3" name="p3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="p4">4. ¿Hay algún pasatiempo o actividad extracurricular que te apasione?</label>
+                            <textarea required class="form-control" id="p4" rows="3" name="p4"></textarea>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <strong>Preguntas sobre habilidades y fortalezas</strong>
+                    </button>
+                  </h2>
+                  <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="form-group">
+                            <label for="p5">5. ¿Que especialidad estudia?</label>
+                            <select required class="form-control" id="p5" name="p5">
+                              <option value="">Seleccionar una opción</option>
+                              <option value="Contabilidad">Contabilidad</option>
+                              <option value="Informática">Informática</option>
+                              <option value="Organización y Gestión de la Secretaria">Organización y Gestión de la Secretaria</option>
+                              <option value="Gestión Administrativa y Ciencias">Gestión Administrativa y Ciencias</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="p6">6. ¿Hay alguna actividad o tarea que encuentres fácil de realizar y que otras personas consideren difícil?</label>
+                            <textarea required class="form-control" id="p6" rows="3" name="p6"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="p7">7. ¿Prefieres trabajar solo o en equipo? ¿Por qué?</label>
+                            <select required class="form-control" id="p7" name="p7">
+                                <option value="">Seleccionar una opción</option>
+                                <option value="Solo">Solo</option>
+                                <option value="En equipo">En equipo</option>
+                                <option value="Ambos">Ambos</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="p8">8. ¿Te sientes cómodo(a) utilizando tecnología? Si es así, ¿qué tipo de tecnología disfrutas usar más?</label>
+                            <textarea required class="form-control" id="p8" rows="3" name="p8"></textarea>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <strong>Preguntas sobre valores y motivaciones</strong>
+                    </button>
+                  </h2>
+                  <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <div class="form-group">
+                            <label for="p9">9. ¿Qué es lo más importante para ti en un trabajo o carrera?</label>
+                            <select required class="form-control" id="p9" name="p9">
+                              <option value="">Seleccionar una opción</option>
+                                <option value="Ayudar a los demás">Ayudar a los demás</option>
+                                <option value="Ganar dinero">Ganar dinero</option>
+                                <option value="Tener un horario flexible">Tener un horario flexible</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="p10">10. ¿Te sientes más motivado(a) cuando estás trabajando en un proyecto creativo o en una tarea analítica?</label>
+                            <select required class="form-control" id="p10" name="p10">
+                              <option value="">Seleccionar una opción</option>
+                                <option value="Proyecto creativo">Proyecto creativo</option>
+                                <option value="Tarea analítica">Tarea analítica</option>
+                                <option value="Ambos">Ambos</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="p11">11. ¿Te gusta enfrentar nuevos desafíos o prefieres tareas más predecibles y estructuradas?</label>
+                            <select required class="form-control" id="p11" name="p11">
+                              <option value="">Seleccionar una opción</option>
+                                <option value="Nuevos desafíos">Nuevos desafíos</option>
+                                <option value="Tareas predecibles">Tareas predecibles</option>
+                                <option value="Ambos">Ambos</option>
+                            </select>
+                        </div>
+                      
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        <strong>Preguntas sobre experiencias previas</strong>
+                      </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        <div class="form-group">
+                            <label for="p12">12. ¿Has tenido alguna experiencia laboral o de voluntariado? ¿Cómo fue esa experiencia?</label>
+                            <textarea required class="form-control" id="p12" rows="3" name="p12"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="p13">13. ¿Hay algún trabajo o actividad que hayas realizado en el pasado que no te haya gustado? ¿Por qué?</label>
+                            <textarea required class="form-control" id="p13" rows="3" name="p13"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="p14">14. ¿Has tenido alguna asignatura o proyecto escolar que te haya resultado especialmente interesante o satisfactorio?</label>
+                            <textarea required class="form-control" id="p14" rows="3" name="p14"></textarea>
+                        </div>
+                        
+                      </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        <strong>Preguntas sobre metas y aspiraciones</strong>
+                      </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        
+                        <div class="form-group">
+                            <label for="p15">15. ¿Tienes alguna idea sobre qué carrera o profesión te gustaría seguir en el futuro?</label>
+                            <textarea required class="form-control" id="p15" rows="3" name="p15"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="p16">16. ¿Qué tipo de empresa o sector te llama más la atención?</label>
+                            <select required class="form-control" id="p16" name="p16">
+                              <option value="">Seleccionar una opción</option>
+                                <option value="Tecnología">Tecnología</option>
+                                <option value="Salud">Salud</option>
+                                <option value="Educación">Educación</option>
+                                <option value="Arte">Arte</option>
+                                <option value="Negocios">Negocios</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="p17">17. ¿Dónde te ves a ti mismo(a) en cinco años? ¿Y en diez años?</label>
+                            <textarea required class="form-control" id="p17" rows="3" name="p17"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="p18">18. ¿Qué aspectos de una empresa consideras importantes para tu desarrollo profesional?</label>
+                            <select required class="form-control" id="p18" name="p18">
+                              <option value="">Seleccionar una opción</option>
+                                <option value="Cultura empresarial">Cultura empresarial</option>
+                                <option value="Oportunidades de crecimiento">Oportunidades de crecimiento</option>
+                                <option value="Impacto social">Impacto social</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                        
+                      </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                        <strong>Preguntas sobre preferencias de trabajo</strong>
+                      </button>
+                    </h2>
+                    <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        
+                        <div class="form-group">
+                            <label for="p19">19. ¿Prefieres un ambiente de trabajo dinámico y cambiante o uno más estable y rutinario?</label>
+                            <select required class="form-control" id="p19" name="p19">
+                              <option value="">Seleccionar una opción</option>
+                                <option value="Dinámico y cambiante">Dinámico y cambiante</option>
+                                <option value="Estable y rutinario">Estable y rutinario</option>
+                                <option value="Ambos">Ambos</option>
+                            </select>H
+                        </div>
+                        <div class="form-group">
+                            <label for="p20">20. ¿Te sientes más productivo(a) en un entorno estructurado o en uno más flexible y creativo?</label>
+                            <select required class="form-control" id="p20" name="p20">
+                              <option value="">Seleccionar una opción</option>
+                                <option value="Entorno estructurado">Entorno estructurado</option>
+                                <option value="Entorno flexible">Entorno flexible</option>
+                                <option value="Ambos">Ambos</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="p21">21. ¿Te interesa más trabajar en una gran empresa o en una pequeña empresa/startup? ¿Por qué?</label>
+                            <select required class="form-control" id="p21" name="p21">
+                              <option value="">Seleccionar una opción</option>
+                                <option value="Gran empresa">Gran empresa</option>
+                                <option value="Pequeña empresa/startup">Pequeña empresa/startup</option>
+                                <option value="Ambos">Ambos</option>
+                            </select>
+                        </div>
+                        
+                      </div>
+                    </div>
+                </div>
+        
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                        <strong>Preguntas de autoevaluación</strong>
+                      </button>
+                    </h2>
+                    <div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        
+                        <div class="form-group">
+                            <label for="p22">22. ¿Qué es lo que más te gustaría aprender durante tus prácticas preprofesionales?</label>
+                            <textarea required class="form-control" id="p22" rows="3" name="p22"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="p23">23. ¿Hay alguna habilidad específica que te gustaría desarrollar?</label>
+                            <textarea required class="form-control" id="p23" rows="3" name="p23"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="p24">24. ¿Qué crees que podrías aportar a una empresa durante tus prácticas?</label>
+                            <textarea required class="form-control" id="p24" rows="3" name="p24"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="p25">25. ¿Qué tipo de apoyo o guía te gustaría recibir durante tus prácticas?</label>
+                            <textarea required class="form-control" id="p25" rows="3" name="p25"></textarea>
+                        </div>
+                        
+                      </div>
+                    </div>
+                </div>
+            
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                        <strong>Reflexión final</strong>
+                      </button>
+                    </h2>
+                    <div id="collapseEight" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div class="accordion-body">
+                        
+                        <div class="form-group">
+                            <label for="p26">26. Si pudieras diseñar tu trabajo ideal, ¿cómo sería?</label>
+                            <textarea required class="form-control" id="p26" rows="3" name="p26"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="p27">27. ¿Qué tipo de impacto te gustaría tener en tu comunidad o en el mundo a través de tu trabajo?</label>
+                            <textarea required class="form-control" id="p27" rows="3" name="p27"></textarea>
+                        </div>
+                                              
+                      </div>
+                    </div>
+                </div>
+            <br>    
+            {% if request.session.estado_ia != 'Aprobado' %}
+              <div class="form-group mt-3">
+                <button type="submit" class="btn btn-outline-success mb-3">Revisar Respuestas</button>
+              </div>
+            {% endif %}
+        </div>
+        </form> 
+
+    </div>
+
+
+    {% endif %}
+</div>    
+
+{% endblock %}

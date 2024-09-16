@@ -1,0 +1,15 @@
+<!-- estudiantes/templates/estudiantes/varios.html -->
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+<h2> Respuesta IA </h2>
+
+  <div class="d-grid gap-2 col-6 mx-auto">
+
+  {{ respuesta_html|safe }}
+
+  </div>
+
+  <a href="{% url 'home' %}" class="btn btn-outline-primary"> Regresar </a>
+
+{% endblock %}

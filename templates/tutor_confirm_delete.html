@@ -1,0 +1,22 @@
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 offset-3">
+            <h2>Eliminar Tutor</h2>
+            <p>¿Estás seguro de que deseas eliminar a "{{ tutor.nombre }}"?</p>
+            <form method="post">
+                {% csrf_token %}
+                <button class="btn btn-outline-danger" type="submit">Confirmar</button>
+            </form>
+                <br>
+            </div>
+
+            <a href="{% url 'tutor_list' %}" class="btn btn-outline-primary col-sm-2 offset-sm-5">Regresar</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

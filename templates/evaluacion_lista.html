@@ -1,0 +1,58 @@
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+<h2>Lista de Evaluaciones</h2>
+
+{% if messages %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+                {% for message in messages %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>   
+{% endif %}
+
+
+<!-- Campo de búsqueda -->
+<form method="GET" action="{% url 'evaluacion_lista' %}" class="mb-3">
+    <input type="text" name="q" value="{{ query }}" class="form-control" placeholder="Buscar estudiante">
+    <button type="submit" class="btn btn-outline-success mt-2">Buscar</button>
+</form>
+
+<div class="table-responsive">
+  <table class="table table-striped table-hover">
+      <thead>
+          <tr>
+              <th>Estudiante</th>
+              <th>Entidad</th>
+              <th>Receptora</th>
+              <th>Área</th>
+              <th>Fecha y Hora</th>
+              <th>Acciones</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for evaluacion in evaluaciones %}
+          <tr>
+              <td>{{ evaluacion.estudiante }}</td>
+              <td>{{ evaluacion.entidad }}</td>
+              <td>{{ evaluacion.receptora }}</td>
+              <td>{{ evaluacion.area }}</td>
+              <td>{{ evaluacion.fecha_hora_registro|date:"d/m/Y h:i a"}}</td>
+              <td>
+                  <a href="{% url 'ver_evaluacion' evaluacion.id %}" class="btn btn-outline-primary btn-sm">Ver</a>
+              </td>
+          </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+</div>
+
+<a class="btn btn-outline-primary mb-3" href="{% url 'tutor_documentos' %}">Regresar</a>  
+
+{% endblock %}

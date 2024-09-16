@@ -1,0 +1,60 @@
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+<h2>Lista de Usuarios</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 offset-sm-3">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+  </div>
+
+<!-- Campo de búsqueda -->
+<form method="GET" action="" class="col-sm-6 offset-sm-3">
+    <div class="input-group mb-3">
+        <input type="text" name="q" class="form-control" placeholder="Buscar usuario o rol..." value="{{ request.GET.q }}">
+        <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+    </div>
+</form>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Rol Actual</th>
+                <th>Nuevo Rol</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for perfil in perfiles %}
+            <tr>
+                <td>{{ perfil.user.username }}</td>
+                <td>{{ perfil.rol.nombre }}</td>
+                <td>
+                    <form method="post" action="{% url 'cambiar_rol' perfil.pk %}">
+                        {% csrf_token %}
+                        <select name="nuevo_rol" required>
+                          <option value="">Seleccione nuevo Rol</option>
+                          {% for rol in roles %}
+                            <option value="{{ rol.pk }}">{{ rol.nombre }}</option>
+                          {% endfor %}
+                        </select>
+                        <button type="submit" class="btn btn-danger">Cambiar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>    
+
+{% endblock %}

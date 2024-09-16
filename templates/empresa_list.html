@@ -1,0 +1,42 @@
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+<h2>Empresas</h2>
+
+<form method="GET" action="" class="col-sm-6 offset-sm-3">
+    <div class="input-group mb-3">
+        <input type="text" name="q" class="form-control" placeholder="Buscar empresa..." value="{{ request.GET.q }}">
+        <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+    </div>
+</form>
+
+{% if request.session.estado_empresa == 'Aprobado' %}
+    <h4>Ya está aprobada la Empresa</h4>
+{% else %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 offset-sm-3">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Nombre de la Empresa</th>
+                        <th>Detalles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for empresa in object_list %}
+                    <tr>
+                        <td>{{ empresa.nombre_empresa }}</td>
+                        <td><a class="btn btn-outline-primary" href="{% url 'empresa_detail' empresa.pk %}">Ver</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<a class="btn btn-outline-success mb-3" href="{% url 'empresa_create' %}">Agregar nueva empresa</a>
+{% endif %}
+<br>
+<a class="btn btn-outline-primary" href="{% url 'home' %}">Regresar</a>
+{% endblock %}

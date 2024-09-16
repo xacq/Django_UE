@@ -1,0 +1,25 @@
+<!-- estudiantes/templates/estudiantes/varios.html -->
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+      <div class="col-sm-6 offset-3">
+        <h2>Selección de Empresa</h2>
+        <p>¿Estás seguro de que desea escoger a la empresa 
+          <strong style="color:green">"{{ empresa.nombre_empresa }}"</strong> para sus prácticas preprofesionales?</p>
+        <form method="post" action="{% url 'escogiendo_empresa' %}">
+          {% csrf_token %}
+          <!-- Corrigiendo el campo input para que contenga el ID de la empresa -->
+          <input type="hidden" name="empresa_id" value="{{ empresa.id }}">
+          <input type="hidden" name="empresa_supervisor" value="{{ empresa.supervisor }}">
+          <input type="hidden" name="empresa_nombre" value="{{ empresa.nombre_empresa }}">
+          <input type="hidden" name="empresa_correo" value="{{ empresa.correo_electronico}}">
+          <button class="btn btn-outline-danger" type="submit">Confirmar</button>
+        </form>
+        <br>
+      </div>
+      <a href="{% url 'empresa_list' %}" class="btn btn-outline-primary col-sm-2 offset-sm-5">Regresar</a>
+  </div>
+</div>
+{% endblock %}

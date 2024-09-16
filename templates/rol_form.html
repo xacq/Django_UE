@@ -1,0 +1,16 @@
+{% extends 'bases/basehome.html' %}
+
+{% block content %}
+    <h2>{% if object %}Editar{% else %}Agregar{% endif %} Rol</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group container">
+            <label for="{{ form.nombre.id_for_label }}" class="form-label">Ingrese el nombre del rol:</label>
+            {{ form.nombre }}
+        </div>
+        
+        
+        <button type="submit" class="btn btn-outline-primary">Guardar</button>
+    </form>
+{% endblock %}
