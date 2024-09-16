@@ -1,0 +1,34 @@
+.body{
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    color: #00296b;
+    font-size: 20px;
+}
+
+h2{
+    color: #00296b !important;
+}
+
+.letter {
+  border: 1px solid black;
+  padding: 20px;
+}
+.heading {
+  text-align: justify;
+  margin-bottom: 20px;
+}
+.salutation {
+    text-align: justify;
+  margin-bottom: 10px;
+}
+.content {
+
+  text-align: justify;
+}
+.closing {
+ 
+  text-align: justify;
+}
+
+
+
