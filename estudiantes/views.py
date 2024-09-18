@@ -1503,7 +1503,7 @@ def analisis_ia(request):
         user = request.user
         perfil = Perfil.objects.get(user=user)  # Cambié .filter() a .get() para obtener un solo objeto
 
-        client = OpenAI(api_key="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")
+        client = OpenAI(api_key="sk-ag9xrx4D-a3SBglAZkLdHrLLDm8iKggBaWtIiB41phT3BlbkFJd-sW3qNse7s_Gs_wNSfG-fJk-5HLAkW_-i0fm4xToA")
         
         prompt = f"""
         Actúa como un psicólogo escolar que analiza las respuestas de un estudiante para determinar su perfil profesional y recomendar un tipo de empresa adecuada para sus prácticas preprofesionales. Necesito que al final concretes la clase de empresa que debera buscar el estudiante y si es posible le des opciones dentro del ambioto Ecuatoriano, especificamente Guayaquil. Las respuestas del estudiante son las siguientes:
